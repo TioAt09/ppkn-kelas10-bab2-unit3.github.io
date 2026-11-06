@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif PPKn Kelas 10</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-indigo-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-indigo-600 p-2 rounded-xl text-amber-300">
+                        <i class="fa-solid fa-book-open-reader text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold leading-tight">PPKn Interaktif X</h1>
+                        <p class="text-xs text-indigo-200">Bab 2 Unit 3: Hak & Kewajiban Warga Negara</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-1">
+                    <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-800/80 flex items-center gap-2">
+                        <i class="fa-solid fa-book"></i> Materi
+                    </button>
+                    <button onclick="switchTab('game')" id="nav-game" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-800/80 flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad"></i> Game
+                    </button>
+                    <button onclick="switchTab('kuis')" id="nav-kuis" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-800/80 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> Kuis (10 Soal)
+                    </button>
+                    <button onclick="switchTab('pembahasan')" id="nav-pembahasan" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-800/80 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i> Pembahasan
+                    </button>
+                    <button onclick="switchTab('flashcard')" id="nav-flashcard" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-800/80 flex items-center gap-2">
+                        <i class="fa-solid fa-cards-blank"></i> Pasal Kunci
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-lg bg-indigo-800 text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Nav -->
+        <div id="mobile-nav" class="hidden md:hidden bg-indigo-950 border-t border-indigo-800 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('materi'); toggleMobileNav()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 flex items-center gap-2">
+                <i class="fa-solid fa-book w-5"></i> Materi Pembelajaran
+            </button>
+            <button onclick="switchTab('game'); toggleMobileNav()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 flex items-center gap-2">
+                <i class="fa-solid fa-gamepad w-5"></i> Game Interaktif
+            </button>
+            <button onclick="switchTab('kuis'); toggleMobileNav()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square w-5"></i> Kuis 10 Soal
+            </button>
+            <button onclick="switchTab('pembahasan'); toggleMobileNav()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb w-5"></i> Pembahasan Soal
+            </button>
+            <button onclick="switchTab('flashcard'); toggleMobileNav()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 flex items-center gap-2">
+                <i class="fa-solid fa-cards-blank w-5"></i> Ringkasan Pasal UUD
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- TAB 1: MATERI PEMBELAJARAN -->
+        <section id="tab-materi" class="tab-content animate-fade-in space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-800 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-indigo-500/40 text-amber-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Modul Pembelajaran Kurikulum Merdeka</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mt-3 leading-tight">Kasus Pelanggaran Hak & Pengingkaran Kewajiban</h2>
+                    <p class="mt-3 text-indigo-100 text-sm sm:text-base leading-relaxed">
+                        Pelajari konsep hak & kewajiban warga negara berdasarkan UUD NRI Tahun 1945, faktor penyebab pelanggaran (internal & eksternal), serta upaya pencegahan dan penanganannya secara kritis dan solutif.
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <button onclick="switchTab('game')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-play"></i> Mainkan Game
+                        </button>
+                        <button onclick="switchTab('kuis')" class="bg-white/20 hover:bg-white/30 text-white font-semibold px-5 py-2.5 rounded-xl text-sm backdrop-blur transition flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question"></i> Langsung Kuis
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none p-6">
+                    <i class="fa-solid fa-scale-balanced text-[200px]"></i>
+                </div>
+            </div>
+
+            <!-- Material Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Card 1: Pengertian & Prinsip -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
+                            1
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Hak & Kewajiban Warga Negara</h3>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600 leading-relaxed">
+                        <li class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                            <strong class="text-indigo-700 block mb-1">Hak Warga Negara:</strong>
+                            Hak yang ditentukan dalam suatu konstitusi negara (UUD NRI 1945) yang melekat pada diri seseorang sebagai warga negara.
+                        </li>
+                        <li class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                            <strong class="text-indigo-700 block mb-1">Kewajiban Warga Negara:</strong>
+                            Tindakan atau perbuatan yang harus dilakukan oleh seorang warga negara sebagaimana diatur dalam ketentuan perundang-undangan.
+                        </li>
+                        <li class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900">
+                            <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-600"></i>
+                            <strong>Prinsip Keseimbangan:</strong> Hak dan kewajiban beriringan. Hak seseorang menimbulkan kewajiban bagi orang lain, sehingga kewajiban harus didahulukan.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Faktor Penyebab -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
+                            2
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Faktor Penyebab Pelanggaran</h3>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-red-50 rounded-xl border border-red-100">
+                            <span class="font-bold text-red-700 block mb-1">a. Faktor Internal (Dari Diri Pelaku):</span>
+                            <ul class="list-disc list-inside space-y-1 text-slate-700">
+                                /><strong>Egoisme:</strong> Menuntut hak tinggi, mengabaikan kewajiban.</li>
+                                /><strong>Rendahnya Kesadaran Berbangsa:</strong> Berbuat seenaknya tanpa peduli aturan.</li>
+                                /><strong>Intoleransi:</strong> Tidak menghargai perbedaan & bersikap diskriminatif.</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
+                            <span class="font-bold text-blue-700 block mb-1">b. Faktor Eksternal (Dari Luar Lingkungan):</span>
+                            <ul class="list-disc list-inside space-y-1 text-slate-700">
+                                />Penyalahgunaan kekuasaan (misal: penertiban sewenang-wenang).</li>
+                                />Ketidaktegasan aparat penegak hukum.</li>
+                                />Penyalahgunaan teknologi (hoaks, cyberbullying).</li>
+                                />Kesenjangan sosial dan ekonomi yang tinggi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Contoh Kasus Pelanggaran Hak -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                            3
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Kasus Pelanggaran Hak</h3>
+                    </div>
+                    <div class="space-y-2 text-sm text-slate-600">
+                        <div class="p-2.5 rounded-lg border border-slate-200 flex items-start gap-3">
+                            <i class="fa-solid fa-child text-emerald-600 mt-1"></i>
+                            <div>
+                                <strong class="text-slate-800">Anak Jalanan & Putus Sekolah:</strong>
+                                Pelanggaran terhadap hak memperoleh pendidikan (Pasal 31 UUD 1945).
+                            </div>
+                        </div>
+                        <div class="p-2.5 rounded-lg border border-slate-200 flex items-start gap-3">
+                            <i class="fa-solid fa-gavel text-emerald-600 mt-1"></i>
+                            <div>
+                                <strong class="text-slate-800">Penegakan Hukum Lemah:</strong>
+                                Belum terlaksananya persamaan di hadapan hukum (Pasal 27 ayat 1 UUD 1945).
+                            </div>
+                        </div>
+                        <div class="p-2.5 rounded-lg border border-slate-200 flex items-start gap-3">
+                            <i class="fa-solid fa-briefcase text-emerald-600 mt-1"></i>
+                            <div>
+                                <strong class="text-slate-800">Kemiskinan & Pengangguran:</strong>
+                                Hak atas pekerjaan dan penghidupan yang layak belum terpenuhi maksimal (Pasal 27 ayat 2).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Contoh Kasus Pengingkaran Kewajiban -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+                            4
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Kasus Pengingkaran Kewajiban</h3>
+                    </div>
+                    <div class="space-y-2 text-sm text-slate-600">
+                        <div class="p-2.5 rounded-lg border border-slate-200 flex items-start gap-3">
+                            <i class="fa-solid fa-motorcycle text-amber-600 mt-1"></i>
+                            <div>
+                                <strong class="text-slate-800">Pelanggaran Lalu Lintas:</strong>
+                                Tidak memakai helm, melanggar trotoar/rambu (Mengingkari kewajiban menjunjung hukum - Pasal 27 ayat 1).
+                            </div>
+                        </div>
+                        <div class="p-2.5 rounded-lg border border-slate-200 flex items-start gap-3">
+                            <i class="fa-solid fa-shield-halved text-amber-600 mt-1"></i>
+                            <div>
+                                <strong class="text-slate-800">Mangkir Siskamling / Pos Ronda:</strong>
+                                Pengingkaran terhadap kewajiban ikutserta dalam pertahanan dan keamanan (Pasal 30 UUD 1945).
+                            </div>
+                        </div>
+                        <div class="p-2.5 rounded-lg border border-slate-200 flex items-start gap-3">
+                            <i class="fa-solid fa-file-invoice-dollar text-amber-600 mt-1"></i>
+                            <div>
+                                <strong class="text-slate-800">Tidak Membayar Pajak:</strong>
+                                Pajak menyumbang >70% APBN. Menolak bayar pajak adalah pengingkaran kewajiban bela negara (Pasal 27 ayat 3).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Upaya Penanganan Section -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-hand text-indigo-600"></i>
+                    Upaya Penanganan Pelanggaran Hak & Pengingkaran Kewajiban
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-indigo-50/60 p-5 rounded-2xl border border-indigo-100">
+                        <h4 class="font-bold text-indigo-900 mb-2 text-base">1. Upaya Preventif (Pencegahan)</h4>
+                        <p class="text-xs text-indigo-700 mb-3">Dilakukan sebelum pelanggaran terjadi untuk membangun kesadaran.</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-slate-700">
+                            <li>Supremasi hukum & penegakan demokrasi.</li>
+                            <li>Meningkatkan kualitas pelayanan publik.</li>
+                            <li>Meningkatkan pengawasan masyarakat & lembaga politik.</li>
+                            <li>Menyebarkan kesadaran berbangsa dan bernegara.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-rose-50/60 p-5 rounded-2xl border border-rose-100">
+                        <h4 class="font-bold text-rose-900 mb-2 text-base">2. Upaya Represif (Penindakan Lembaga Negara)</h4>
+                        <p class="text-xs text-rose-700 mb-3">Tindakan/sanksi tegas setelah penyimpangan terjadi agar jera.</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-slate-700">
+                            <li><strong>Kepolisian (POLRI):</strong> Penanganan tindak pidana & lalu lintas.</li>
+                            <li><strong>TNI:</strong> Menangani ancaman militer pertahanan negara.</li>
+                            <li><strong>Lembaga Pengadilan:</strong> Memutus perkara secara adil.</li>
+                            <li><strong>KPK:</strong> Penyelidikan & pencegahan tindak korupsi.</li>
+                            <li><strong>DJP Kemenkeu:</strong> Penegakan aturan perpajakan.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: GAME INTERAKTIF -->
+        <section id="tab-game" class="tab-content hidden animate-fade-in space-y-8">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-3xl p-6 sm:p-8 shadow-lg">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="bg-black/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Mini Game Edukasi</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold mt-1">Detektif Hak & Kewajiban</h2>
+                        <p class="text-amber-100 text-sm mt-1">Uji kemampuan analisis kasusmu! Klasifikasikan setiap peristiwa dengan benar.</p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur px-5 py-3 rounded-2xl text-center self-stretch sm:self-auto">
+                        <span class="text-xs block text-amber-100">Skor Game Kamu</span>
+                        <span id="game-score" class="text-3xl font-black">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Arena Card -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+                <div id="game-container" class="max-w-2xl mx-auto space-y-6">
+                    <div class="flex justify-between items-center text-sm text-slate-500 border-b pb-3">
+                        <span>Soal Game <span id="game-step" class="font-bold text-slate-800">1</span> dari 6</span>
+                        <span id="game-timer" class="font-semibold text-amber-600"><i class="fa-solid fa-clock"></i> Fokus & Teliti</span>
+                    </div>
+
+                    <!-- Question / Scenario Card -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border-2 border-indigo-100 text-center space-y-3">
+                        <span id="game-badge" class="inline-block bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">Skenario Peristiwa</span>
+                        <p id="game-scenario" class="text-lg font-bold text-slate-800 leading-relaxed">
+                            "Seorang pengendara motor menggunakan trotoar jalan untuk menerobos kemacetan lalu lintas."
+                        </p>
+                    </div>
+
+                    <!-- Category Choice Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="game-choices">
+                        <!-- Dynamic choices -->
+                    </div>
+
+                    <!-- Feedback Box -->
+                    <div id="game-feedback" class="hidden p-4 rounded-xl text-sm font-medium text-center"></div>
+
+                    <div class="flex justify-end pt-2">
+                        <button id="game-next-btn" onclick="nextGameQuestion()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">
+                            Lanjut Tantangan <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Result Screen (Hidden by default) -->
+                <div id="game-result-screen" class="hidden text-center max-w-md mx-auto py-8 space-y-4">
+                    <div class="w-20 h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800">Detektif Handal!</h3>
+                    <p class="text-slate-600 text-sm">Kamu menyelesaikan tantangan klasifikasi kasus dengan total skor:</p>
+                    <div class="text-5xl font-black text-indigo-600" id="final-game-score">100</div>
+                    <button onclick="resetGame()" class="bg-indigo-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-indigo-700 transition text-sm">
+                        <i class="fa-solid fa-rotate-right mr-2"></i>Main Lagi
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: KUIS INTERAKTIF (10 SOAL BUKU) -->
+        <section id="tab-kuis" class="tab-content hidden animate-fade-in space-y-6">
+            <!-- Quiz Header Banner -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-indigo-600"></i>
+                        Kuis Formatif Asesmen Bab 2 Unit 3
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">10 Soal Pilihan Ganda Disesuaikan dari Buku Teks Pendidikan Pancasila SMA Kelas 10</p>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <div class="bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100 text-center flex-1 sm:flex-initial">
+                        <span class="text-[10px] text-indigo-500 font-bold uppercase block">Progres</span>
+                        <span id="quiz-progress-text" class="text-sm font-bold text-indigo-900">1 / 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Progress Bar -->
+            <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                <div id="quiz-progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 10%"></div>
+            </div>
+
+            <!-- Quiz Card -->
+            <div id="quiz-card" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <!-- Question Title -->
+                <div class="space-y-2">
+                    <span id="quiz-number-badge" class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full">Soal 1</span>
+                    <h3 id="quiz-question-text" class="text-base sm:text-lg font-bold text-slate-800 leading-relaxed">
+                        Loading Soal...
+                    </h3>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div id="quiz-options-container" class="space-y-3">
+                    <!-- Options populated dynamically -->
+                </div>
+
+                <!-- Quiz Navigation Buttons -->
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button id="prev-btn" onclick="navigateQuiz(-1)" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 font-medium text-sm hover:bg-slate-50 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+                    </button>
+                    <button id="next-btn" onclick="navigateQuiz(1)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2 rounded-xl text-sm transition">
+                        Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                    <button id="submit-quiz-btn" onclick="submitQuiz()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-xl text-sm transition">
+                        Selesai & Lihat Hasil <i class="fa-solid fa-check ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result View (Hidden by default) -->
+            <div id="quiz-result-view" class="hidden bg-white rounded-2xl p-8 shadow-sm border border-slate-200 text-center space-y-6 animate-fade-in">
+                <div class="max-w-md mx-auto space-y-4">
+                    <div id="result-icon-bg" class="w-24 h-24 rounded-full flex items-center justify-center mx-auto text-5xl shadow-inner bg-indigo-100 text-indigo-600">
+                        <i id="result-icon" class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-slate-800">Hasil Kuis Kamu</h3>
+                    <p id="result-message" class="text-slate-600 text-sm">Selamat! Kamu telah menyelesaikan seluruh soal.</p>
+                    
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block font-semibold">NILAI AKHIR</span>
+                            <span id="score-val" class="text-4xl font-black text-indigo-600">0</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block font-semibold">BENAR / TOTAL</span>
+                            <span id="score-detail" class="text-2xl font-bold text-slate-700 mt-1 block">0 / 10</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button onclick="switchTab('pembahasan')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-lightbulb"></i> Lihat Pembahasan
+                        </button>
+                        <button onclick="restartQuiz()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Coba Lagi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: PEMBAHASAN KUIS -->
+        <section id="tab-pembahasan" class="tab-content hidden animate-fade-in space-y-6">
+            <div class="bg-indigo-900 text-white p-6 rounded-2xl shadow-md flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-bold">Pembahasan Lengkap 10 Soal Kuis</h2>
+                    <p class="text-xs text-indigo-200 mt-1">Disertai analisis yuridis UUD NRI Tahun 1945 dan rujukan konsep buku teks.</p>
+                </div>
+                <button onclick="switchTab('kuis')" class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> Kerjakan Ulang
+                </button>
+            </div>
+
+            <!-- List of Discussions -->
+            <div id="pembahasan-list" class="space-y-4">
+                <!-- Dynamically Generated Discussions -->
+            </div>
+        </section>
+
+        <!-- TAB 5: FLASHCARD / PASAL KUNCI -->
+        <section id="tab-flashcard" class="tab-content hidden animate-fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-cards-blank text-indigo-600"></i>
+                    Kartu Memori Pasal UUD NRI Tahun 1945
+                </h2>
+                <p class="text-xs text-slate-500">Klik kartu untuk membalik dan melihat bunyi pasal atau jaminan hak/kewajibannya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="flashcard-grid">
+                <!-- Flashcards rendered dynamically -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-semibold text-slate-300">Media Pembelajaran Interaktif Pendidikan Pancasila SMA-MA Kelas 10</p>
+            <p>Berdasarkan Kurikulum Merdeka - Bagian 2 UUD NRI Tahun 1945 (Bab 2 Unit 3)</p>
+            <p class="text-slate-500">&copy; 2026 PPKn Media Belajar Interaktif. Desain Simpel, Responsif, & Edukatif.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // DATA 10 SOAL SESUAI BUKU TEKS & ASESMEN KOMPETENSI 2
+        const quizData = [
+            {
+                id: 1,
+                question: "Hak yang ditentukan dalam suatu konstitusi negara merupakan pengertian dari ...",
+                options: [
+                    "Hak Asasi Manusia",
+                    "Hak Alami",
+                    "Hak Warga Negara",
+                    "Kewenangan Warga Negara",
+                    "Kewenangan Pemerintah"
+                ],
+                answer: 2, // Index C (Hak Warga Negara)
+                explanation: "<strong>Jawaban Benar: Hak Warga Negara.</strong><br>Hak warga negara adalah hak yang ditentukan dalam konstitusi suatu negara (seperti UUD NRI Tahun 1945) yang khusus melekat pada seseorang karena status kewarganegaraannya."
+            },
+            {
+                id: 2,
+                question: "Perhatikan beberapa pernyataan berikut:<br>(1) Tidak memaksakan agama kepada orang lain.<br>(2) Menjunjung hak asasi manusia.<br>(3) Mengembangkan budaya demokrasi.<br>(4) Mengutamakan kebenaran dan keadilan.<br>(5) Mau bekerja keras dalam mencapai tujuan.<br>Berdasarkan pernyataan di atas, hak dan kewajiban warga negara berdasarkan nilai-nilai kemanusiaan (Sila Ke-2) ditunjukkan oleh nomor ...",
+                options: [
+                    "(1) dan (3)",
+                    "(2) dan (3)",
+                    "(2) dan (4)",
+                    "(3) dan (5)",
+                    "(4) dan (5)"
+                ],
+                answer: 2, // Index C ((2) dan (4))
+                explanation: "<strong>Jawaban Benar: (2) dan (4).</strong><br>Nilai kemanusiaan yang adil dan beradab (Sila ke-2) menekankan penghargaan terhadap Hak Asasi Manusia (nomor 2) serta sikap mengutamakan kebenaran dan keadilan (nomor 4)."
+            },
+            {
+                id: 3,
+                question: "Perhatikan beberapa pernyataan berikut:<br>(1) Perlakuan yang sama dalam hukum.<br>(2) Menjunjung tinggi hukum dan pemerintahan.<br>(3) Mendapatkan pendidikan.<br>(4) Mengikuti pendidikan dasar.<br>(5) Ikut serta dalam upaya pembelaan negara.<br>Hak warga negara berdasarkan UUD NRI Tahun 1945 ditunjukkan oleh nomor ...",
+                options: [
+                    "(1), (2), dan (3)",
+                    "(1), (3), dan (5)",
+                    "(2), (3), dan (4)",
+                    "(2), (4), dan (5)",
+                    "(3), (4), dan (5)"
+                ],
+                answer: 1, // Index B ((1), (3), dan (5))
+                explanation: "<strong>Jawaban Benar: (1), (3), dan (5).</strong><br>Pernyataan (1) Hak atas perlakuan sama di hukum (Pasal 27 ayat 1), (3) Hak mendapat pendidikan (Pasal 31 ayat 1), dan (5) Hak & kewajiban pembelaan negara (Pasal 27 ayat 3) adalah bentuk HAK. Sedangkan (2) dan (4) adalah KEWAJIBAN."
+            },
+            {
+                id: 4,
+                question: "Desa Balun di Lamongan dinobatkan sebagai 'Desa Wisata Pancasila' karena masyarakatnya (Islam, Hindu, Kristen) hidup rukun, saling menghargai saat beribadah, dan bekerja sama. Wacana ini sesuai dengan jaminan UUD NRI Tahun 1945 pasal ...",
+                options: [
+                    "Pasal 27 UUD NRI Tahun 1945",
+                    "Pasal 28 UUD NRI Tahun 1945",
+                    "Pasal 29 UUD NRI Tahun 1945",
+                    "Pasal 30 UUD NRI Tahun 1945",
+                    "Pasal 33 UUD NRI Tahun 1945"
+                ],
+                answer: 2, // Index C (Pasal 29)
+                explanation: "<strong>Jawaban Benar: Pasal 29 UUD NRI Tahun 1945.</strong><br>Pasal 29 ayat (2) menjamin kebebasan tiap-tiap penduduk untuk memeluk agamanya masing-masing dan untuk beribadat menurut agamanya dan kepercayaannya itu."
+            },
+            {
+                id: 5,
+                question: "Contoh hak warga negara dalam bidang hukum adalah ...",
+                options: [
+                    "Semua warga negara bebas menjalankan ibadah agama",
+                    "Semua warga negara mempunyai hak membela diri di hadapan pengadilan",
+                    "Keikutsertaan warga negara dalam membela negara",
+                    "Setiap warga negara bebas mengeluarkan pendapat",
+                    "Setiap warga negara berhak mendapatkan pendidikan"
+                ],
+                answer: 1, // Index B
+                explanation: "<strong>Jawaban Benar: Semua warga negara mempunyai hak membela diri di hadapan pengadilan.</strong><br>Hak dalam bidang hukum menjamin persamaan kedudukan di hadapan hukum dan hak memperoleh perlindungan serta bantuan hukum membela diri (Pasal 27 ayat 1)."
+            },
+            {
+                id: 6,
+                question: "Kewajiban warga negara untuk mengikuti pendidikan dasar diatur dalam UUD NRI Tahun 1945 pasal ...",
+                options: [
+                    "Pasal 31 ayat (1)",
+                    "Pasal 31 ayat (2)",
+                    "Pasal 31 ayat (3)",
+                    "Pasal 31 ayat (4)",
+                    "Pasal 31 ayat (5)"
+                ],
+                answer: 1, // Index B (Pasal 31 ayat 2)
+                explanation: "<strong>Jawaban Benar: Pasal 31 ayat (2).</strong><br>Pasal 31 ayat (2) berbunyi: 'Setiap warga negara wajib mengikuti pendidikan dasar dan pemerintah wajib membiayainya.'"
+            },
+            {
+                id: 7,
+                question: "Berikut ini yang merupakan kewajiban warga negara yang diatur secara tegas dalam Pasal 28J UUD NRI Tahun 1945 adalah ...",
+                options: [
+                    "Mengikuti pendidikan dasar",
+                    "Ikut serta dalam upaya pembelaan negara",
+                    "Menjunjung hukum dan pemerintahan",
+                    "Ikut serta dalam usaha pertahanan dan keamanan",
+                    "Menghormati hak asasi manusia orang lain"
+                ],
+                answer: 4, // Index E
+                explanation: "<strong>Jawaban Benar: Menghormati hak asasi manusia orang lain.</strong><br>Pasal 28J ayat (1) menegaskan bahwa setiap orang wajib menghormati hak asasi manusia orang lain dalam tertib kehidupan bermasyarakat, berbangsa, dan bernegara."
+            },
+            {
+                id: 8,
+                question: "Setiap orang berhak mendapatkan suaka politik dari negara lain. Hal tersebut secara jelas tercantum dalam UUD NRI Tahun 1945 pasal ...",
+                options: [
+                    "Pasal 28A",
+                    "Pasal 28B",
+                    "Pasal 28F",
+                    "Pasal 28G",
+                    "Pasal 28H"
+                ],
+                answer: 3, // Index D (Pasal 28G)
+                explanation: "<strong>Jawaban Benar: Pasal 28G.</strong><br>Pasal 28G ayat (2) berbunyi: 'Setiap orang berhak untuk bebas dari penyiksaan atau perlakuan yang merendahkan derajat martabat manusia dan berhak memperoleh suaka politik dari negara lain.'"
+            },
+            {
+                id: 9,
+                question: "Berikut ini BUKAN termasuk faktor internal penyebab terjadinya kasus pelanggaran hak dan pengingkaran kewajiban warga negara adalah ...",
+                options: [
+                    "Penyalahgunaan teknologi",
+                    "Sifat egois yang tinggi",
+                    "Rendahnya kesadaran berbangsa dan bernegara",
+                    "Sifat intoleran terhadap perbedaan",
+                    "Sikap yang tidak menghargai orang lain"
+                ],
+                answer: 0, // Index A (Penyalahgunaan teknologi)
+                explanation: "<strong>Jawaban Benar: Penyalahgunaan teknologi.</strong><br>Penyalahgunaan teknologi merupakan faktor eksternal (dari lingkungan luar), sedangkan egoisme, rendahnya kesadaran, dan intoleransi adalah faktor internal dari dalam diri pelaku."
+            },
+            {
+                id: 10,
+                question: "Membayar pajak kendaraan bermotor atau pajak tahunan merupakan salah satu bentuk perwujudan bela negara yang merupakan kewajiban warga negara sebagaimana tercantum dalam ...",
+                options: [
+                    "Pasal 27 ayat (1) UUD NRI Tahun 1945",
+                    "Pasal 27 ayat (2) UUD NRI Tahun 1945",
+                    "Pasal 27 ayat (3) UUD NRI Tahun 1945",
+                    "Pasal 30 ayat (1) UUD NRI Tahun 1945",
+                    "Pasal 34 ayat (1) UUD NRI Tahun 1945"
+                ],
+                answer: 2, // Index C (Pasal 27 ayat 3)
+                explanation: "<strong>Jawaban Benar: Pasal 27 ayat (3) UUD NRI Tahun 1945.</strong><br>Dalam buku teks dijelaskan bahwa membayar pajak adalah perwujudan bela negara untuk mendanai >70% APBN, di mana Pasal 27 ayat (3) mengatur hak dan kewajiban ikutserta dalam upaya pembelaan negara."
+            }
+        ];
+
+        // GAME DATA
+        const gameQuestions = [
+            {
+                scenario: "Seorang siswa dengan sengaja membolos sekolah dan memanjat pagar bersama teman-temannya saat jam pelajaran berlangsung.",
+                options: [
+                    { label: "Pengingkaran Kewajiban", correct: true },
+                    { label: "Pelanggaran Hak", correct: false },
+                    { label: "Upaya Preventif", correct: false },
+                    { label: "Hak Warga Negara", correct: false }
+                ],
+                note: "Membolos sekolah merupakan contoh pengingkaran kewajiban siswa untuk mengikuti proses pendidikan."
+            },
+            {
+                scenario: "Seorang pengendara motor melintas di atas trotoar pejalan kaki karena ingin menghindari kemacetan.",
+                options: [
+                    { label: "Pengingkaran Kewajiban", correct: true },
+                    { label: "Faktor Internal Egoisme", correct: false },
+                    { label: "Pelanggaran Hak Pejalan Kaki", correct: false },
+                    { label: "Pengingkaran Kewajiban & Pelanggaran Hak", correct: true } // accepts both logically
+                ],
+                note: "Pengendara mengabaikan aturan lalu lintas (kewajiban) sekaligus merampas hak pejalan kaki atas trotoar."
+            },
+            {
+                scenario: "Seseorang yang menyebarkan berita bohong (hoaks) dan ujaran kebencian melalui media sosial.",
+                options: [
+                    { label: "Faktor Eksternal (Teknologi)", correct: true },
+                    { label: "Upaya Represif", correct: false },
+                    { label: "Siskamling", correct: false },
+                    { label: "Bela Negara", correct: false }
+                ],
+                note: "Penyalahgunaan kemajuan teknologi merupakan salah satu faktor eksternal pemicu pelanggaran hak."
+            },
+            {
+                scenario: "Kepolisian melakukan penindakan dan memberikan surat tilang kepada pengendara yang melanggar aturan lalu lintas.",
+                options: [
+                    { label: "Upaya Represif (Penindakan)", correct: true },
+                    { label: "Upaya Preventif (Pencegahan)", correct: false },
+                    { label: "Pengingkaran Kewajiban", correct: false },
+                    { label: "Faktor Internal", correct: false }
+                ],
+                note: "Penindakan dan pemberian sanksi oleh kepolisian setelah pelanggaran terjadi disebut tindakan represif."
+            },
+            {
+                scenario: "Pemerintah meningkatkan kualitas layanan publik serta mensosialisasikan pentingnya kesadaran berbangsa.",
+                options: [
+                    { label: "Upaya Preventif (Pencegahan)", correct: true },
+                    { label: "Upaya Represif", correct: false },
+                    { label: "Pelanggaran Hak", correct: false },
+                    { label: "Intoleransi", correct: false }
+                ],
+                note: "Langkah-langkah sosialisasi dan peningkatan layanan adalah bentuk upaya pencegahan (preventif)."
+            },
+            {
+                scenario: "Warga masyarakat melaksanakan kegiatan ronda malam / Siskamling secara bergantian di lingkungannya.",
+                options: [
+                    { label: "Kewajiban Hankam (Pasal 30)", correct: true },
+                    { label: "Pengingkaran Kewajiban", correct: false },
+                    { label: "Pelanggaran HAM", correct: false },
+                    { label: "Kesenjangan Ekonomi", correct: false }
+                ],
+                note: "Siskamling adalah wujud partisipasi warga negara dalam kewajiban pertahanan dan keamanan negara."
+            }
+        ];
+
+        // FLASHCARDS DATA
+        const flashcardData = [
+            { pasal: "Pasal 27 Ayat (1)", title: "Hukum & Pemerintahan", text: "Segala warga negara bersamaan kedudukannya di dalam hukum dan pemerintahan dan wajib menjunjung hukum dan pemerintahan itu." },
+            { pasal: "Pasal 27 Ayat (2)", title: "Pekerjaan & Penghidupan", text: "Tiap-tiap warga negara berhak atas pekerjaan dan penghidupan yang layak bagi kemanusiaan." },
+            { pasal: "Pasal 27 Ayat (3)", title: "Bela Negara", text: "Setiap warga negara berhak dan wajib ikut serta dalam upaya pembelaan negara (termasuk taat bayar pajak)." },
+            { pasal: "Pasal 28J Ayat (1)", title: "Menghormati HAM", text: "Setiap orang wajib menghormati hak asasi manusia orang lain dalam tertib kehidupan bermasyarakat, berbangsa, dan bernegara." },
+            { pasal: "Pasal 29 Ayat (2)", title: "Kebebasan Agama", text: "Negara menjamin kemerdekaan tiap-tiap penduduk untuk memeluk agamanya masing-masing dan beribadat menurut agamanya." },
+            { pasal: "Pasal 30 Ayat (1)", title: "Pertahanan & Keamanan", text: "Tiap-tiap warga negara berhak dan wajib ikut serta dalam usaha pertahanan dan keamanan negara (misal Siskamling)." },
+            { pasal: "Pasal 31 Ayat (1) & (2)", title: "Pendidikan Dasar", text: "Berhak mendapat pendidikan (Ayat 1) dan wajib mengikuti pendidikan dasar yang dibiayai pemerintah (Ayat 2)." },
+            { pasal: "Pasal 34 Ayat (1)", title: "Fakir Miskin & Anak Terlantar", text: "Fakir miskin dan anak-anak yang terlantar dipelihara oleh negara." }
+        ];
+
+        // STATE VARIABLES
+        let currentQuizIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let currentGameIndex = 0;
+        let gameScore = 0;
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuizQuestion();
+            renderPembahasanList();
+            renderGameQuestion();
+            renderFlashcards();
+            updateNavUI('materi');
+        });
+
+        // TAB SWITCHING LOGIC
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) {
+                activeTab.classList.remove('hidden');
+            }
+            updateNavUI(tabId);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateNavUI(activeTabId) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-800', 'text-amber-300');
+            });
+            const activeNav = document.getElementById(`nav-${activeTabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-indigo-800', 'text-amber-300');
+            }
+        }
+
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('hidden');
+        }
+
+        // QUIZ LOGIC
+        function renderQuizQuestion() {
+            const q = quizData[currentQuizIndex];
+            document.getElementById('quiz-number-badge').innerText = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+            document.getElementById('quiz-question-text').innerHTML = q.question;
+
+            // Update Progress Bar
+            const progressPercent = ((currentQuizIndex + 1) / quizData.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('quiz-progress-text').innerText = `${currentQuizIndex + 1} / ${quizData.length}`;
+
+            // Render Options
+            const optionsContainer = document.getElementById('quiz-options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const isSelected = userAnswers[currentQuizIndex] === idx;
+                const optionBtn = document.createElement('button');
+                optionBtn.className = `w-full text-left p-4 rounded-xl border text-sm sm:text-base font-medium transition flex items-center justify-between ${
+                    isSelected 
+                    ? 'border-indigo-600 bg-indigo-50/80 text-indigo-900 shadow-sm' 
+                    : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                }`;
+                optionBtn.onclick = () => selectQuizAnswer(idx);
+
+                optionBtn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center ${
+                            isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'
+                        }">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span>${opt}</span>
+                    </div>
+                    ${isSelected ? '<i class="fa-solid fa-circle-check text-indigo-600 text-lg"></i>' : ''}
+                `;
+                optionsContainer.appendChild(optionBtn);
+            });
+
+            // Update Navigation Buttons
+            document.getElementById('prev-btn').disabled = (currentQuizIndex === 0);
+            
+            if (currentQuizIndex === quizData.length - 1) {
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('submit-quiz-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('submit-quiz-btn').classList.add('hidden');
+            }
+        }
+
+        function selectQuizAnswer(optionIdx) {
+            userAnswers[currentQuizIndex] = optionIdx;
+            renderQuizQuestion();
+        }
+
+        function navigateQuiz(direction) {
+            currentQuizIndex += direction;
+            if (currentQuizIndex < 0) currentQuizIndex = 0;
+            if (currentQuizIndex >= quizData.length) currentQuizIndex = quizData.length - 1;
+            renderQuizQuestion();
+        }
+
+        function submitQuiz() {
+            // Calculate Score
+            let correctCount = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === quizData[idx].answer) {
+                    correctCount++;
+                }
+            });
+
+            const score = Math.round((correctCount / quizData.length) * 100);
+
+            // Display Results
+            document.getElementById('quiz-card').classList.add('hidden');
+            document.getElementById('quiz-result-view').classList.remove('hidden');
+
+            document.getElementById('score-val').innerText = score;
+            document.getElementById('score-detail').innerText = `${correctCount} / ${quizData.length}`;
+
+            const iconBg = document.getElementById('result-icon-bg');
+            const icon = document.getElementById('result-icon');
+            const msg = document.getElementById('result-message');
+
+            if (score >= 80) {
+                iconBg.className = 'w-24 h-24 rounded-full flex items-center justify-center mx-auto text-5xl shadow-inner bg-emerald-100 text-emerald-600';
+                icon.className = 'fa-solid fa-trophy';
+                msg.innerText = 'Luar Biasa! Kamu sangat menguasai materi Hak & Kewajiban Warga Negara!';
+            } else if (score >= 60) {
+                iconBg.className = 'w-24 h-24 rounded-full flex items-center justify-center mx-auto text-5xl shadow-inner bg-indigo-100 text-indigo-600';
+                icon.className = 'fa-solid fa-medal';
+                msg.innerText = 'Bagus! Pemahamanmu sudah cukup baik, baca kembali pembahasan untuk nilai sempurna.';
+            } else {
+                iconBg.className = 'w-24 h-24 rounded-full flex items-center justify-center mx-auto text-5xl shadow-inner bg-amber-100 text-amber-600';
+                icon.className = 'fa-solid fa-book-open';
+                msg.innerText = 'Jangan berkecil hati! Pelajari modul ringkasan dan pembahasan lalu coba lagi.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            document.getElementById('quiz-result-view').classList.add('hidden');
+            document.getElementById('quiz-card').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        // PEMBAHASAN GENERATION
+        function renderPembahasanList() {
+            const container = document.getElementById('pembahasan-list');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const item = document.createElement('div');
+                item.className = 'bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3';
+                
+                const optionLetters = ['A', 'B', 'C', 'D', 'E'];
+                const correctAnswerLetter = optionLetters[q.answer];
+                const correctAnswerText = q.options[q.answer];
+
+                item.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded-lg mt-0.5">
+                            Soal ${idx + 1}
+                        </span>
+                        <h3 class="font-bold text-slate-800 text-base leading-snug">${q.question}</h3>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs sm:text-sm space-y-1">
+                        <span class="text-slate-500 block">Kunci Jawaban:</span>
+                        <span class="font-bold text-emerald-700 block">${correctAnswerLetter}. ${correctAnswerText}</span>
+                    </div>
+                    <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                        <i class="fa-solid fa-circle-info text-indigo-600 mr-1.5"></i>
+                        ${q.explanation}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // GAME LOGIC
+        function renderGameQuestion() {
+            if (currentGameIndex >= gameQuestions.length) {
+                // Game Over View
+                document.getElementById('game-container').classList.add('hidden');
+                document.getElementById('game-result-screen').classList.remove('hidden');
+                document.getElementById('final-game-score').innerText = gameScore;
+                return;
+            }
+
+            const q = gameQuestions[currentGameIndex];
+            document.getElementById('game-step').innerText = currentGameIndex + 1;
+            document.getElementById('game-scenario').innerText = `"${q.scenario}"`;
+            document.getElementById('game-feedback').className = 'hidden p-4 rounded-xl text-sm font-medium text-center';
+            document.getElementById('game-next-btn').classList.add('hidden');
+
+            const choicesContainer = document.getElementById('game-choices');
+            choicesContainer.innerHTML = '';
+
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'game-opt-btn bg-slate-100 hover:bg-indigo-50 hover:border-indigo-300 border border-slate-200 text-slate-700 font-semibold p-4 rounded-xl text-sm transition text-left';
+                btn.innerText = opt.label;
+                btn.onclick = () => handleGameAnswer(opt.correct, q.note, btn);
+                choicesContainer.appendChild(btn);
+            });
+        }
+
+        function handleGameAnswer(isCorrect, note, clickedBtn) {
+            // Disable all option buttons
+            document.querySelectorAll('.game-opt-btn').forEach(btn => btn.disabled = true);
+
+            const feedback = document.getElementById('game-feedback');
+            feedback.classList.remove('hidden');
+
+            if (isCorrect) {
+                gameScore += 20;
+                document.getElementById('game-score').innerText = gameScore;
+                clickedBtn.className = 'game-opt-btn bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-bold p-4 rounded-xl text-sm';
+                feedback.className = 'p-4 rounded-xl text-sm font-semibold text-center bg-emerald-100 text-emerald-800 border border-emerald-200';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-lg mr-2"></i>Tepat Sekali! +20 Skor.<br><span class="text-xs font-normal">${note}</span>`;
+            } else {
+                clickedBtn.className = 'game-opt-btn bg-rose-100 border-2 border-rose-500 text-rose-900 font-bold p-4 rounded-xl text-sm';
+                feedback.className = 'p-4 rounded-xl text-sm font-semibold text-center bg-rose-100 text-rose-800 border border-rose-200';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-lg mr-2"></i>Kurang Tepat.<br><span class="text-xs font-normal">${note}</span>`;
+            }
+
+            document.getElementById('game-next-btn').classList.remove('hidden');
+        }
+
+        function nextGameQuestion() {
+            currentGameIndex++;
+            renderGameQuestion();
+        }
+
+        function resetGame() {
+            currentGameIndex = 0;
+            gameScore = 0;
+            document.getElementById('game-score').innerText = '0';
+            document.getElementById('game-result-screen').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderGameQuestion();
+        }
+
+        // FLASHCARDS LOGIC
+        function renderFlashcards() {
+            const container = document.getElementById('flashcard-grid');
+            container.innerHTML = '';
+
+            flashcardData.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl p-5 shadow-sm border border-slate-200 hover:border-indigo-300 transition cursor-pointer flex flex-col justify-between min-h-[160px] group';
+                card.onclick = () => {
+                    const textEl = card.querySelector('.card-text');
+                    textEl.classList.toggle('hidden');
+                };
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-md">${item.pasal}</span>
+                            <i class="fa-solid fa-arrows-rotate text-slate-300 group-hover:text-indigo-500 text-xs transition"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">${item.title}</h4>
+                        <p class="card-text text-xs text-slate-600 leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-100">${item.text}</p>
+                    </div>
+                    <span class="text-[10px] text-indigo-500 font-medium mt-3 block text-right">Klik untuk detail / lipat</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
